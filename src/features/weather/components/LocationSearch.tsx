@@ -41,7 +41,8 @@ export function LocationSearch({
       return;
     }
 
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
         setIsLoadingGeo(false);
         onCoordsSubmit(position.coords.latitude, position.coords.longitude);
       },
@@ -61,13 +62,26 @@ export function LocationSearch({
   };
 
   return (
-    <Paper elevation={2} sx={{ p: 3, mb: 4 }}>
-      <Typography variant="h5" component="h1" gutterBottom>
+    <Paper
+      elevation={0}
+      sx={{
+        p: 4,
+        mb: 4,
+        background: 'linear-gradient(135deg, #193463 0%, #2d4a7c 100%)',
+        boxShadow: 'inset 0 2px 8px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(25, 52, 99, 0.15)',
+      }}
+    >
+      <Typography
+        variant="h5"
+        component="h1"
+        gutterBottom
+        sx={{ color: 'white', fontWeight: 600, mb: 3 }}
+      >
         Weather Forecast
       </Typography>
       <Box component="form" onSubmit={handleCitySubmit}>
         <Stack spacing={2}>
-          <Stack direction="row" spacing={2}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <TextField
               fullWidth
               label="Search city"
@@ -75,12 +89,24 @@ export function LocationSearch({
               value={cityInput}
               onChange={(e) => setCityInput(e.target.value)}
               size="medium"
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'white',
+                },
+              }}
             />
             <Button
               type="submit"
               variant="contained"
               startIcon={<SearchIcon />}
               disabled={!cityInput.trim()}
+              sx={{
+                minWidth: { xs: '100%', sm: '120px' },
+                background: 'linear-gradient(135deg, #6dbe82 0%, #8cd09d 100%)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #4a9b60 0%, #6dbe82 100%)',
+                },
+              }}
             >
               Search
             </Button>
@@ -91,11 +117,23 @@ export function LocationSearch({
             onClick={handleUseCurrentLocation}
             disabled={isLoadingGeo}
             fullWidth
+            sx={{
+              borderColor: 'white',
+              color: 'white',
+              '&:hover': {
+                borderColor: 'white',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              },
+            }}
           >
             {isLoadingGeo ? 'Getting location...' : 'Use Current Location'}
           </Button>
           {geoError && (
-            <Alert severity="error" onClose={() => setGeoError(null)}>
+            <Alert
+              severity="error"
+              onClose={() => setGeoError(null)}
+              sx={{ borderRadius: 2 }}
+            >
               {geoError}
             </Alert>
           )}

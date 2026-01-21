@@ -10,7 +10,11 @@ export function CenteredLoading() {
         minHeight: '200px',
       }}
     >
-      <CircularProgress />
+      <CircularProgress
+        sx={{
+          color: 'primary.main',
+        }}
+      />
     </Box>
   );
 }

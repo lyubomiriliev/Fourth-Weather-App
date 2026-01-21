@@ -1,5 +1,5 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Box, Typography, Button, Alert } from '@mui/material';
+import { Box, Typography, Button, Alert, Paper } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { HourlyForecastTable } from '../components/HourlyForecastTable';
 import { CenteredLoading } from '../../../shared/components/CenteredLoading';
@@ -29,14 +29,26 @@ export function ForecastDetailPage() {
   if (!forecastLocation) {
     return (
       <Box>
-        <Alert severity="warning">
+        <Alert
+          severity="warning"
+          sx={{
+            borderRadius: 3,
+            background: 'linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%)',
+            mb: 2,
+          }}
+        >
           No location selected. Please go back and select a location.
         </Alert>
         <Button
           variant="contained"
           startIcon={<ArrowBackIcon />}
           onClick={handleBack}
-          sx={{ mt: 2 }}
+          sx={{
+            background: 'linear-gradient(135deg, #193463 0%, #2d4a7c 100%)',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #0f1f3d 0%, #193463 100%)',
+            },
+          }}
         >
           Back to Search
         </Button>
@@ -62,7 +74,13 @@ export function ForecastDetailPage() {
           variant="contained"
           startIcon={<ArrowBackIcon />}
           onClick={handleBack}
-          sx={{ mt: 2 }}
+          sx={{
+            mt: 2,
+            background: 'linear-gradient(135deg, #193463 0%, #2d4a7c 100%)',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #0f1f3d 0%, #193463 100%)',
+            },
+          }}
         >
           Back to Search
         </Button>
@@ -79,14 +97,26 @@ export function ForecastDetailPage() {
   if (!selectedDay) {
     return (
       <Box>
-        <Alert severity="error">
+        <Alert
+          severity="error"
+          sx={{
+            borderRadius: 3,
+            background: 'linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%)',
+            mb: 2,
+          }}
+        >
           Day not found. The selected date may not be available in the forecast.
         </Alert>
         <Button
           variant="contained"
           startIcon={<ArrowBackIcon />}
           onClick={handleBack}
-          sx={{ mt: 2 }}
+          sx={{
+            background: 'linear-gradient(135deg, #193463 0%, #2d4a7c 100%)',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #0f1f3d 0%, #193463 100%)',
+            },
+          }}
         >
           Back to Forecast List
         </Button>
@@ -110,21 +140,57 @@ export function ForecastDetailPage() {
         variant="outlined"
         startIcon={<ArrowBackIcon />}
         onClick={handleBack}
-        sx={{ mb: 3 }}
+        sx={{
+          mb: 3,
+          borderColor: 'primary.main',
+          color: 'primary.main',
+          '&:hover': {
+            borderColor: 'primary.dark',
+            backgroundColor: 'rgba(25, 52, 99, 0.04)',
+          },
+        }}
       >
         Back to Forecast List
       </Button>
 
-      <Typography variant="h4" component="h1" gutterBottom>
-        {data.locationName}, {data.country}
-      </Typography>
-      <Typography variant="h5" component="h2" gutterBottom color="text.secondary">
-        {formattedDate}
-      </Typography>
-      <Typography variant="body1" paragraph>
-        Temperature range: {Math.round(selectedDay.tempMin)}°C -{' '}
-        {Math.round(selectedDay.tempMax)}°C
-      </Typography>
+      <Paper
+        elevation={0}
+        sx={{
+          p: 3,
+          mb: 3,
+          background: 'linear-gradient(135deg, #193463 0%, #2d4a7c 100%)',
+          boxShadow: 'inset 0 2px 8px rgba(255, 255, 255, 0.1), 0 4px 16px rgba(25, 52, 99, 0.2)',
+        }}
+      >
+        <Typography
+          variant="h4"
+          component="h1"
+          sx={{ color: 'white', fontWeight: 700, mb: 1 }}
+        >
+          {data.locationName}, {data.country}
+        </Typography>
+        <Typography
+          variant="h5"
+          component="h2"
+          sx={{ color: 'rgba(255, 255, 255, 0.9)', fontWeight: 500, mb: 1 }}
+        >
+          {formattedDate}
+        </Typography>
+        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+          Temperature range:{' '}
+          <Box
+            component="span"
+            sx={{
+              fontWeight: 700,
+              background: 'linear-gradient(135deg, #f99b30 0%, #fab45a 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            {Math.round(selectedDay.tempMin)}°C - {Math.round(selectedDay.tempMax)}°C
+          </Box>
+        </Typography>
+      </Paper>
 
       <HourlyForecastTable day={selectedDay} />
     </Box>
