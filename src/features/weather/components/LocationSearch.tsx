@@ -62,12 +62,12 @@ export function LocationSearch({
   };
 
   return (
-    <Paper
+      <Paper
       elevation={0}
       sx={{
         p: 4,
         mb: 4,
-        background: 'linear-gradient(135deg, #193463 0%, #2d4a7c 100%)',
+        backgroundColor: 'background.default',
         boxShadow: 'inset 0 2px 8px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(25, 52, 99, 0.15)',
       }}
     >
@@ -75,7 +75,7 @@ export function LocationSearch({
         variant="h5"
         component="h1"
         gutterBottom
-        sx={{ color: 'white', fontWeight: 600, mb: 3 }}
+        sx={{ color: 'primary.main', fontWeight: 600, mb: 3 }}
       >
         Weather Forecast
       </Typography>
@@ -102,6 +102,7 @@ export function LocationSearch({
               disabled={!cityInput.trim()}
               sx={{
                 minWidth: { xs: '100%', sm: '120px' },
+                cursor: !cityInput.trim() ? 'not-allowed' : 'pointer',
                 background: 'linear-gradient(135deg, #6dbe82 0%, #8cd09d 100%)',
                 '&:hover': {
                   background: 'linear-gradient(135deg, #4a9b60 0%, #6dbe82 100%)',
@@ -118,11 +119,13 @@ export function LocationSearch({
             disabled={isLoadingGeo}
             fullWidth
             sx={{
-              borderColor: 'white',
-              color: 'white',
+              borderColor: 'primary.main',
+              color: 'primary.main',
+              transition: 'all 0.3s ease',
               '&:hover': {
-                borderColor: 'white',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderColor: 'primary.dark',
+                backgroundColor: 'primary.light',
+                color: 'white',
               },
             }}
           >
