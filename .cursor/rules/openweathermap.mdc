@@ -1,0 +1,23 @@
+---
+alwaysApply: false
+---
+---
+description: Standards for interacting with OpenWeatherMap API
+globs: src/features/**/api/*.ts, src/services/*.ts
+---
+# OpenWeatherMap API Rules
+
+- **Base URL:** `https://api.openweathermap.org/data/2.5`
+- **Endpoint:** Use the 5-day forecast endpoint: `/forecast`.
+- **Units:** Default to `metric` (Celsius) unless specified otherwise.
+- **Security:** NEVER hardcode the API key in the source. Use `import.meta.env.VITE_OPENWEATHER_API_KEY`.
+
+# Data Transformation Strategy
+The 5-day forecast returns data in 3-hour steps (40 items).
+- **Rule:** Do not pass the raw list to the UI.
+- **Transform:** Group the 40 items by "Day" (e.g., "YYYY-MM-DD") in the selector function of `useQuery`.
+- **Daily Summary:** For the daily card, calculate the `max` and `min` temp from the 3-hour chunks of that day.
+
+# Error Handling
+- Handle 404 (City not found) explicitly with a user-friendly message.
+- Handle 401 (Invalid Key) gracefully during development.
